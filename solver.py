@@ -18,13 +18,25 @@ words=open("english_words.txt")
 wordlist = set(())
 for word in words:
     wordlist.add(str(word).lower()[:-1])
-soln = []
+soln = {}
 for word in wordlist:
     if center in word:
         if len(word) > 3:
             if any(letter in bad_letters for letter in word) == False:
                 if center in word:
                     if any(letter in special for letter in word) == False:
-                        soln.append(word)
+                        if len(word) in soln:
+                            soln[len(word)].append(word)
+                        else:
+                            soln[len(word)] = [word]
 
-print(soln)
+for num in range(4,20):
+    if num in soln:
+        print("\n-->",num,"<------")
+        count = 0
+        for word in soln[num]:
+            print("  ",word, end="")
+            count += 1
+            if count == 5:
+                print() 
+                count = 0
