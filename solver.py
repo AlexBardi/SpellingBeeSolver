@@ -19,13 +19,16 @@ wordlist = set(())
 for word in words:
     wordlist.add(str(word).lower()[:-1])
 soln = {}
+panagrams = []
 for word in wordlist:
     if center in word:
         if len(word) > 3:
             if any(letter in bad_letters for letter in word) == False:
                 if center in word:
                     if any(letter in special for letter in word) == False:
-                        if len(word) in soln:
+                        if len(set(letter for letter in word)) == 7:
+                            panagrams.append(word)
+                        elif len(word) in soln:
                             soln[len(word)].append(word)
                         else:
                             soln[len(word)] = [word]
@@ -40,3 +43,7 @@ for num in range(4,20):
             if count == 5:
                 print() 
                 count = 0
+
+print("--->Panagrams<---")
+for word in panagrams:
+    print(word)
